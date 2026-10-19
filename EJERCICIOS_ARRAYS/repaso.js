@@ -45,7 +45,7 @@ const extraerArray = ([t,i,s]) => {
 }
 
 extraerArray(avenger)
-
+  
 //FUNCION
 
 function activar (quien, objeto = 'batiseñal') {

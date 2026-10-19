@@ -44,7 +44,7 @@ temperaturas2.forEach(t => {
 const cadena = []
 const invertido = []
 let palabraInv
-
+   
 for(let i = 0; i < 5; i++) {
     let palabra = prompt("Introduce una palabra: ")
     cadena.push(palabra)
