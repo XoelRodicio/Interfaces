@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReservaXa · Seleccionar pista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pine-900:#132920; --pine-700:#1F4D3D; --pine-500:#2E6B54;
+    --clay-500:#BD5B2C; --clay-600:#A34A22; --clay-100:#F3DFCF;
+    --paper:#F7F7F2; --paper-dim:#EDECE4; --ink:#16231D; --ink-soft:#5B685F;
+    --line:#DAD9CE;
+    --font-display:'Space Grotesk','Inter',sans-serif;
+    --font-body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--paper-dim); font-family:var(--font-body); color:var(--ink);
+    display:flex; justify-content:center; min-height:100vh; padding:32px 16px;}
+  a{text-decoration:none; color:inherit;}
+
+  .phone{width:390px; max-width:100%; background:var(--paper); border-radius:36px; overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(19,41,32,.35); display:flex; flex-direction:column;
+    min-height:780px; position:relative;}
+
+  header{background:var(--pine-700); color:var(--paper); padding:22px 22px 20px;}
+  .top-row{display:flex; align-items:center; gap:12px; margin-bottom:16px;}
+  .back-btn{width:36px;height:36px;border-radius:50%;background:rgba(247,247,242,.12);border:none;
+    color:var(--paper);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;}
+  header h1{font-family:var(--font-display); font-weight:600; font-size:20px; margin:0;}
+
+  .steps{display:flex; gap:6px;}
+  .step{flex:1; height:4px; border-radius:2px; background:rgba(247,247,242,.25);}
+  .step.done, .step.active{background:var(--clay-500);}
+
+  .content{flex:1; overflow-y:auto; padding:22px 22px 130px; display:flex; flex-direction:column; gap:26px;}
+  .section-label{font-family:var(--font-display); font-weight:600; font-size:15px; color:var(--pine-900); margin:0 0 12px;}
+  .section-sub{font-size:16px; color:var(--ink-soft); margin:-8px 0 12px;}
+
+  .sport-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+  .sport-card{border:1.5px solid var(--line); background:var(--paper); border-radius:16px; padding:14px 8px 10px;
+    display:flex; flex-direction:column; align-items:center; gap:8px; cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;}
+  .sport-card .ic{font-size:22px;}
+  .sport-card span{font-size:12px; font-weight:600;}
+  .sport-card.active{border-color:var(--pine-700); background:#E7F0EA;}
+
+  .court-list{display:flex; flex-direction:column; gap:10px;}
+  .court-item{border:1.5px solid var(--line); border-radius:16px; padding:14px; display:flex;
+    align-items:center; justify-content:space-between; gap:12px; cursor:pointer;}
+  .court-item.active{border-color:var(--clay-500); background:var(--clay-100);}
+  .court-info h3{margin:0 0 3px; font-size:16px; font-weight:600;}
+  .court-info p{margin:0; font-size:16px; color:var(--ink-soft);}
+  .court-badge{font-size:11px; font-weight:600; padding:5px 10px; border-radius:999px;
+    background:var(--paper-dim); color:var(--ink-soft); white-space:nowrap;}
+  .court-item.active .court-badge{background:var(--clay-500); color:#fff;}
+
+  .date-scroll{display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; scrollbar-width:none;}
+  .date-scroll::-webkit-scrollbar{display:none;}
+  .date-chip{flex:0 0 auto; width:52px; height:52px; border:1.5px solid var(--line); border-radius:16px; padding:10px 0;
+    display:flex; flex-direction:column; align-items:center; gap:4px; cursor:pointer;}
+  .date-chip .dow{font-size:16px; color:var(--ink-soft); text-transform:uppercase;}
+  .date-chip .num{font-family:var(--font-display); font-weight:600; font-size:17px;}
+  .date-chip.active{background:var(--pine-700); border-color:var(--pine-700);}
+  .date-chip.active .dow, .date-chip.active .num{color:#fff;}
+
+  .time-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+  .time-slot{height:48px; border:1.5px solid var(--line); border-radius:10px; padding:11px 0; text-align:center;
+    font-size:13.5px; font-weight:600; cursor:pointer; background:var(--paper);}
+  .time-slot.active{background:var(--pine-700); border-color:var(--pine-700); color:#fff;}
+  .time-slot.disabled{color:#B9B6A9; background:var(--paper-dim); cursor:not-allowed; text-decoration:line-through;}
+
+  .confirm-bar{position:absolute; left:0; right:0; bottom:0; background:var(--paper);
+    border-top:1px solid var(--line); padding:16px 22px 20px; display:flex; align-items:center;
+    justify-content:space-between; gap:14px;}
+  .confirm-summary p{margin:0; font-size:16px; color:var(--ink-soft);}
+  .confirm-summary strong{display:block; font-size:14px; font-family:var(--font-display); color:var(--pine-900); margin-top:2px;}
+  .confirm-btn{background:var(--clay-600); color:#fff; border:none; border-radius:999px; padding:14px 26px;
+    font-size:14.5px; font-weight:700; font-family:var(--font-body); cursor:pointer; white-space:nowrap;
+    transition:background .15s ease;}
+  .confirm-btn:hover{background: #8F3F1D;}
+
+  .confirm-btn:focus-visible, .sport-card:focus-visible, .court-item:focus-visible,
+  .date-chip:focus-visible, .time-slot:focus-visible, .back-btn:focus-visible{
+    outline:2.5px solid var(--pine-700); outline-offset:2px;}
+
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;}}
+  @media (max-width:400px){.phone{border-radius:0;min-height:100vh;} body{padding:0;}}
+</style>
+</head>
+<body>
+
+<main class="phone">
+  <header>
+    <div class="top-row">
+      <a class="back-btn" href="1-inicio.html" aria-label="Volver">←</a>
+      <h1>Seleccionar pista</h1>
+    </div>
+    <div class="steps" aria-label="Paso 2 de 4">
+      <div class="step done"></div>
+      <div class="step active"></div>
+      <div class="step"></div>
+      <div class="step"></div>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <section>
+      <p class="section-label">Deporte</p>
+      <div class="sport-grid" role="radiogroup" aria-label="Selección de deporte">
+        <div class="sport-card active" role="radio" aria-checked="true" tabindex="0"><span class="ic" aria-hidden="true">🎾</span><span>Padel</span></div>
+        <div class="sport-card" role="radio" aria-checked="false" tabindex="0"><span class="ic" aria-hidden="true">⚽</span><span>Fútbol 7</span></div>
+        <div class="sport-card" role="radio" aria-checked="false" tabindex="0"><span class="ic" aria-hidden="true">🏀</span><span>Baloncesto</span></div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Pista dispoñible</p>
+      <p class="section-sub">Pavillón Municipal A · 3 pistas para padel</p>
+      <div class="court-list" role="radiogroup" aria-label="Selección de pista">
+        <div class="court-item active" role="radio" aria-checked="true" tabindex="0">
+          <div class="court-info"><h3>Pista 1 — Cuberta</h3><p>Chan de céspede sintético</p></div>
+          <span class="court-badge">Libre</span>
+        </div>
+        <div class="court-item" role="radio" aria-checked="false" tabindex="0">
+          <div class="court-info"><h3>Pista 2 — Exterior</h3><p>Iluminación nocturna</p></div>
+          <span class="court-badge">Libre</span>
+        </div>
+        <div class="court-item" role="radio" aria-checked="false" tabindex="0">
+          <div class="court-info"><h3>Pista 3 — Cuberta</h3><p>Chan de resina</p></div>
+          <span class="court-badge">Libre</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Data</p>
+      <div class="date-scroll" role="radiogroup" aria-label="Selección de data">
+        <div class="date-chip" role="radio" aria-checked="false" tabindex="0"><span class="dow">Lun</span><span class="num">15</span></div>
+        <div class="date-chip active" role="radio" aria-checked="true" tabindex="0"><span class="dow">Mar</span><span class="num">16</span></div>
+        <div class="date-chip" role="radio" aria-checked="false" tabindex="0"><span class="dow">Mér</span><span class="num">17</span></div>
+        <div class="date-chip" role="radio" aria-checked="false" tabindex="0"><span class="dow">Xov</span><span class="num">18</span></div>
+        <div class="date-chip" role="radio" aria-checked="false" tabindex="0"><span class="dow">Ven</span><span class="num">19</span></div>
+        <div class="date-chip" role="radio" aria-checked="false" tabindex="0"><span class="dow">Sáb</span><span class="num">20</span></div>
+        <div class="date-chip" role="radio" aria-checked="false" tabindex="0"><span class="dow">Dom</span><span class="num">21</span></div>
+      </div>
+    </section>
+
+    <section>
+      <p class="section-label">Hora</p>
+      <div class="time-grid" role="radiogroup" aria-label="Selección de hora">
+        <div class="time-slot" role="radio" aria-checked="false" tabindex="0">09:00</div>
+        <div class="time-slot" role="radio" aria-checked="false" tabindex="0">10:00</div>
+        <div class="time-slot disabled" aria-disabled="true">11:00</div>
+        <div class="time-slot" role="radio" aria-checked="false" tabindex="0">17:00</div>
+        <div class="time-slot active" role="radio" aria-checked="true" tabindex="0">18:00</div>
+        <div class="time-slot" role="radio" aria-checked="false" tabindex="0">19:00</div>
+        <div class="time-slot disabled" aria-disabled="true">20:00</div>
+        <div class="time-slot" role="radio" aria-checked="false" tabindex="0">21:00</div>
+        <div class="time-slot" role="radio" aria-checked="false" tabindex="0">22:00</div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="confirm-bar">
+    <div class="confirm-summary">
+      <p>Padel · Pista 1 · 16 mar</p>
+      <strong>18:00 – 19:00</strong>
+    </div>
+    <a class="confirm-btn" href="3-formulario.html">Continuar</a>
+  </div>
+</main>
+
+<script>
+  function wireGroup(selector){
+    const items = document.querySelectorAll(selector);
+    items.forEach(item=>{
+      item.addEventListener('click', ()=>{
+        items.forEach(i=>{ i.classList.remove('active'); i.setAttribute('aria-checked','false'); });
+        item.classList.add('active');
+        item.setAttribute('aria-checked','true');
+      });
+      item.addEventListener('keydown', e=>{
+        if(e.key==='Enter' || e.key===' '){ e.preventDefault(); item.click(); }
+      });
+    });
+  }
+  wireGroup('.sport-card');
+  wireGroup('.court-item');
+  wireGroup('.date-chip');
+  wireGroup('.time-slot:not(.disabled)');
+</script>
+
+</body>
+</html>

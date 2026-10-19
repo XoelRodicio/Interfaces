@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReservaXa · Os teus datos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pine-900:#132920; --pine-700:#1F4D3D; --pine-500:#2E6B54;
+    --clay-500:#BD5B2C; --clay-600:#A34A22; --clay-100:#F3DFCF;
+    --paper:#F7F7F2; --paper-dim:#EDECE4; --ink:#16231D; --ink-soft:#5B685F;
+    --line:#DAD9CE; --err:#B3261E;
+    --font-display:'Space Grotesk','Inter',sans-serif;
+    --font-body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--paper-dim); font-family:var(--font-body); color:var(--ink);
+    display:flex; justify-content:center; min-height:100vh; padding:32px 16px;}
+  a{text-decoration:none; color:inherit;}
+
+  .phone{width:390px; max-width:100%; background:var(--paper); border-radius:36px; overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(19,41,32,.35); display:flex; flex-direction:column;
+    min-height:780px; position:relative;}
+
+  header{background:var(--pine-700); color:var(--paper); padding:22px 22px 20px;}
+  .top-row{display:flex; align-items:center; gap:12px; margin-bottom:16px;}
+  .back-btn{width:48px;height:48px;border-radius:50%;background:rgba(247,247,242,.12);border:none;
+    color:var(--paper);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;}
+  header h1{font-family:var(--font-display); font-weight:600; font-size:20px; margin:0;}
+
+  .steps{display:flex; gap:6px;}
+  .step{flex:1; height:4px; border-radius:2px; background:rgba(247,247,242,.25);}
+  .step.done, .step.active{background:var(--clay-500);}
+
+  .content{flex:1; overflow-y:auto; padding:22px 22px 130px; display:flex; flex-direction:column; gap:24px;}
+
+  .summary-card{background:var(--clay-100); border-radius:16px; padding:14px 16px; display:flex;
+    align-items:center; justify-content:space-between; gap:10px;}
+  .summary-card p{margin:0; font-size:12px; color:var(--clay-600); font-weight:600;}
+  .summary-card strong{display:block; font-size:14.5px; font-family:var(--font-display); color:var(--pine-900); margin-top:2px;}
+  .summary-card a{font-size:12px; font-weight:700; color:var(--pine-700); text-decoration:underline; flex:0 0 auto;}
+
+  .section-label{font-family:var(--font-display); font-weight:600; font-size:15px; color:var(--pine-900); margin:0 0 4px;}
+
+  form{display:flex; flex-direction:column; gap:16px;}
+  .field{display:flex; flex-direction:column; gap:6px;}
+  .field label{font-size:12.5px; font-weight:600; color:var(--ink-soft);}
+  .field input, .field textarea{
+    border:1.5px solid var(--line); border-radius:12px; padding:12px 14px; font-family:var(--font-body);
+    font-size:14px; color:var(--ink); background:var(--paper); outline:none; resize:none;
+  }
+  .field input:focus, .field textarea:focus{border-color:var(--pine-700); min-width:0;}
+  .row-2{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .row-2 .field {min-width: 0;}
+  .checkbox-row{display:flex; align-items:flex-start; gap:10px; margin-top:2px;}
+  .checkbox-row input{margin-top:3px; width:16px; height:16px; accent-color:var(--pine-700);}
+  .checkbox-row label{font-size:12px; color:var(--ink-soft); line-height:1.5;}
+  .checkbox-row a{color:var(--pine-700); font-weight:600; text-decoration:underline;}
+
+  .confirm-bar{position:absolute; left:0; right:0; bottom:0; background:var(--paper);
+    border-top:1px solid var(--line); padding:16px 22px 20px;}
+  .confirm-btn{width:100%; background:var(--clay-600); color:#fff; border:none; border-radius:999px;
+    padding:15px 0; font-size:15px; font-weight:700; font-family:var(--font-body); cursor:pointer;
+    text-align:center; display:block; transition:background .15s ease;}
+  .confirm-btn:hover{background: #8F3F1D;}
+  .confirm-btn:disabled{background:#C9C6BA; cursor:not-allowed;}
+
+  .terminos {padding: 12px 0;}
+
+  .field input:focus-visible, .field textarea:focus-visible, .confirm-btn:focus-visible,
+  .back-btn:focus-visible, .checkbox-row input:focus-visible{
+    outline:2.5px solid var(--pine-700); outline-offset:2px;}
+
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;}}
+  @media (max-width:400px){.phone{border-radius:0;min-height:100vh;} body{padding:0;}}
+</style>
+</head>
+<body>
+
+<main class="phone">
+  <header>
+    <div class="top-row">
+      <a class="back-btn" href="2-seleccion-pistas.html" aria-label="Volver">←</a>
+      <h1>Os teus datos</h1>
+    </div>
+    <div class="steps" aria-label="Paso 3 de 4">
+      <div class="step done"></div>
+      <div class="step done"></div>
+      <div class="step active"></div>
+      <div class="step"></div>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <div class="summary-card">
+      <div>
+        <p>Padel · Pista 1 · 16 mar</p>
+        <strong>18:00 – 19:00</strong>
+      </div>
+      <a href="2-seleccion-pistas.html">Editar</a>
+    </div>
+
+    <div>
+      <p class="section-label">Datos de contacto</p>
+    </div>
+
+    <form id="reservaForm" onsubmit="return false;">
+      <div class="row-2">
+        <div class="field">
+          <label for="nome">Nome</label>
+          <input type="text" id="nome" name="nome" placeholder="Nombre" required>
+        </div>
+        <div class="field">
+          <label for="apelidos">Apelidos</label>
+          <input type="text" id="apelidos" name="apelidos" placeholder="Apellidos" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" placeholder="correo@exemplo.com" required>
+      </div>
+
+      <div class="field">
+        <label for="telefono">Teléfono</label>
+        <input type="tel" id="telefono" name="telefono" placeholder="600 000 000" required>
+      </div>
+
+      <div class="field">
+        <label for="observacions">Observacións (opcional)</label>
+        <textarea id="observacions" name="observacions" rows="3" placeholder="Ex: necesito material extra"></textarea>
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="terminos" required>
+        <label for="terminos">Acepto as <a href="#">condicións de uso</a> e a política de reservas do Concello</label>
+      </div>
+    </form>
+
+  </div>
+
+  <div class="confirm-bar">
+    <a class="confirm-btn" href="4-reserva-confirmada.html" id="submitBtn">Confirmar reserva</a>
+  </div>
+</main>
+
+<script>
+  // Bloquea o avance ata que os campos obrigatorios e a casa de condicións estean cubertos
+  const form = document.getElementById('reservaForm');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function validar(){
+    const valido = form.checkValidity();
+    if(!valido){
+      submitBtn.style.pointerEvents = 'none';
+      submitBtn.style.background = '#C9C6BA';
+    } else {
+      submitBtn.style.pointerEvents = 'auto';
+      submitBtn.style.background = '';
+    }
+    return valido;
+  }
+
+  form.addEventListener('input', validar);
+  validar();
+
+  submitBtn.addEventListener('click', (e)=>{
+    if(!validar()){
+      e.preventDefault();
+      form.reportValidity();
+    }
+  });
+</script>
+
+</body>
+</html>

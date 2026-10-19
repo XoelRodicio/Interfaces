@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReservaXa · Reserva confirmada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pine-900:#132920; --pine-700:#1F4D3D; --pine-500:#2E6B54;
+    --clay-500:#BD5B2C; --clay-600:#A34A22; --clay-100:#F3DFCF;
+    --paper:#F7F7F2; --paper-dim:#EDECE4; --ink:#16231D; --ink-soft:#5B685F;
+    --line:#DAD9CE;
+    --font-display:'Space Grotesk','Inter',sans-serif;
+    --font-body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--paper-dim); font-family:var(--font-body); color:var(--ink);
+    display:flex; justify-content:center; min-height:100vh; padding:32px 16px;}
+  a{text-decoration:none; color:inherit;}
+  button{font-family:var(--font-body);}
+
+  .phone{width:390px; max-width:100%; background:var(--paper); border-radius:36px; overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(19,41,32,.35); display:flex; flex-direction:column;
+    min-height:780px; position:relative;}
+
+  header{background:var(--pine-700); color:var(--paper); padding:22px 22px 20px;}
+  .top-row{display:flex; align-items:center; gap:12px; margin-bottom:16px;}
+  .back-btn{width:36px;height:36px;border-radius:50%;background:rgba(247,247,242,.12);border:none;
+    color:var(--paper);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;}
+  header h1{font-family:var(--font-display); font-weight:600; font-size:20px; margin:0;}
+
+  .steps{display:flex; gap:6px;}
+  .step{flex:1; height:4px; border-radius:2px; background:rgba(247,247,242,.25);}
+  .step.done{background:var(--clay-500);}
+
+  .content{flex:1; overflow-y:auto; padding:30px 22px 34px; display:flex; flex-direction:column; align-items:center; gap:22px; text-align:center;}
+
+  .check-badge{width:72px; height:72px; border-radius:50%; background:#E7F0EA; color:var(--pine-700);
+    display:flex; align-items:center; justify-content:center; font-size:34px; border:2px solid var(--pine-700);}
+
+  .headline h2{font-family:var(--font-display); font-weight:600; font-size:21px; margin:0 0 6px; color:var(--pine-900);}
+  .headline p{margin:0; font-size:13.5px; color:var(--ink-soft); max-width:280px;}
+
+  .qr-card{background:#fff; border:1.5px solid var(--line); border-radius:20px; padding:20px; width:100%;
+    display:flex; flex-direction:column; align-items:center; gap:12px;}
+  .qr-card img{width:170px; height:170px; border-radius:8px;}
+  .qr-code{font-family:var(--font-display); font-weight:600; font-size:15px; letter-spacing:.06em; color:var(--pine-900);}
+  .qr-hint{font-size:16px; color:var(--ink-soft); margin:0;}
+
+  .details-card{width:100%; border:1.5px solid var(--line); border-radius:16px; padding:16px; text-align:left;
+    display:flex; flex-direction:column; gap:10px;}
+  .details-row{display:flex; justify-content:space-between; gap:10px; font-size:16px;}
+  .details-row span:first-child{color:var(--ink-soft);}
+  .details-row span:last-child{font-weight:600; text-align:right;}
+  .divider{border-top:1px dashed var(--line); margin:2px 0;}
+
+  .actions{width:100%; display:flex; flex-direction:column; gap:10px;}
+  .action-btn{width:100%; border-radius:999px; padding:14px 0; font-size:14px; font-weight:700;
+    cursor:pointer; border:1.5px solid var(--pine-700); background:var(--paper); color:var(--pine-700);
+    display:flex; align-items:center; justify-content:center; gap:8px; transition:background .15s ease;}
+  .action-btn:hover{background:#E7F0EA;}
+  .action-btn.primary{background:var(--clay-500); border-color:var(--clay-500); color:#fff;}
+  .action-btn.primary:hover{background: #8F3F1D;}
+
+  .home-link{padding: 12px; font-size:13px; font-weight:600; color:var(--ink-soft); text-decoration:underline; margin-top:4px;}
+
+  .action-btn:focus-visible, .back-btn:focus-visible, .home-link:focus-visible{
+    outline:2.5px solid var(--pine-700); outline-offset:2px;}
+
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;}}
+  @media (max-width:400px){.phone{border-radius:0;min-height:100vh;} body{padding:0;}}
+</style>
+</head>
+<body>
+
+<main class="phone">
+  <header>
+    <div class="top-row">
+      <a class="back-btn" href="3-formulario.html" aria-label="Volver">←</a>
+      <h1>Reserva confirmada</h1>
+    </div>
+    <div class="steps" aria-label="Paso 4 de 4">
+      <div class="step done"></div>
+      <div class="step done"></div>
+      <div class="step done"></div>
+      <div class="step done"></div>
+    </div>
+  </header>
+
+  <div class="content">
+
+    <div class="check-badge" aria-hidden="true">✓</div>
+
+    <div class="headline">
+      <h2>Todo listo, Xoel</h2>
+      <p>A túa pista está reservada. Amosa este código QR na entrada da instalación.</p>
+    </div>
+
+    <div class="qr-card">
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=132920&bgcolor=FFFFFF&data=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DdQw4w9WgXcQ"
+           alt="Código QR da reserva RX-48213" loading="lazy">
+      <p class="qr-code">RX-48213</p>
+      <p class="qr-hint">Válido só para a franxa reservada</p>
+    </div>
+
+    <div class="details-card">
+      <div class="details-row"><span>Instalación</span><span>Pavillón Municipal A</span></div>
+      <div class="details-row"><span>Deporte</span><span>Padel · Pista 1</span></div>
+      <div class="details-row"><span>Data</span><span>Martes, 16 de marzo</span></div>
+      <div class="details-row"><span>Hora</span><span>18:00 – 19:00</span></div>
+      <div class="divider"></div>
+      <div class="details-row"><span>Titular</span><span>Xoel Pérez García</span></div>
+      <div class="details-row"><span>Confirmación enviada a</span><span>xoel@exemplo.com</span></div>
+    </div>
+
+    <div class="actions">
+      <a class="action-btn primary"
+         href="https://www.google.com/calendar/render?action=TEMPLATE&text=ReservaXa%20-%20Padel%20Pista%201&dates=20260316T180000/20260316T190000&details=Reserva%20RX-48213%20no%20Pavill%C3%B3n%20Municipal%20A&location=Pavill%C3%B3n%20Municipal%20A"
+         target="_blank" rel="noopener">📅 Engadir a Google Calendar</a>
+      <a class="action-btn"
+         href="mailto:?subject=A%20miña%20reserva%20ReservaXa%20RX-48213&body=Padel%20%C2%B7%20Pista%201%20%C2%B7%2016%20de%20marzo%2C%2018%3A00%E2%80%9319%3A00%20%C2%B7%20Pavill%C3%B3n%20Municipal%20A">✉️ Enviar por correo</a>
+    </div>
+
+    <a class="home-link" href="1-inicio.html">Volver ao inicio</a>
+
+  </div>
+</main>
+
+</body>
+</html>

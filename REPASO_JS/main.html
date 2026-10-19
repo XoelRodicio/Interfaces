@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <ul id="lista">
+    </ul>
+
+    <button onClick ="anhadirTarea()"> AÑADIR TAREAS</button>
+    <script>
+    function anhadirTarea() {
+        const tareas = ["Estudiar", "Comer", "Revivir a George Floyd"];
+
+        const listaHTML = document.getElementById("lista");
+
+        tareas.forEach((t) => {
+            const li = document.createElement("li")
+            li.textContent = t
+            listaHTML.appendChild(li)        
+            const botonEliminar = document.createElement("button")
+            botonEliminar.textContent = "Eliminar Tarea"
+            listaHTML.appendChild(botonEliminar)
+            
+            botonEliminar.addEventListener('click', () => {
+                 listaHTML.removeChild(li)
+                 listaHTML.removeChild(botonEliminar)
+            })
+        })
+        }
+    </script>
+</body>
+</html>

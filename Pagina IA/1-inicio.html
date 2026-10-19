@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="gl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReservaXa · Inicio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pine-900:#132920; --pine-700:#1F4D3D; --pine-500:#2E6B54;
+    --clay-500:#BD5B2C; --clay-600:#A34A22; --clay-100:#F3DFCF;
+    --paper:#F7F7F2; --paper-dim:#EDECE4; --ink:#16231D; --ink-soft:#5B685F;
+    --line:#DAD9CE;
+    --font-display:'Space Grotesk','Inter',sans-serif;
+    --font-body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:var(--paper-dim); font-family:var(--font-body); color:var(--ink);
+    display:flex; justify-content:center; min-height:100vh; padding:32px 16px;}
+  a{text-decoration:none; color:inherit;}
+
+  .phone{width:390px; max-width:100%; background:var(--paper); border-radius:36px; overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(19,41,32,.35); display:flex; flex-direction:column;
+    min-height:780px; position:relative;}
+
+  header{background:var(--pine-700); color:var(--paper); padding:26px 22px 34px; position:relative;
+    border-radius:0 0 28px 28px;}
+  .top-row{display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;}
+  .brand{display:flex; align-items:center; gap:8px; font-family:var(--font-display); font-weight:700; font-size:17px;}
+  .brand .dot{width:8px;height:8px;border-radius:50%;background:var(--clay-500);}
+  .avatar{width:48px;height:48px;border-radius:50%;background:rgba(247,247,242,.15);
+    display:flex;align-items:center;justify-content:center;font-size:14px;}
+  header h1{font-family:var(--font-display); font-weight:600; font-size:24px; line-height:1.2; margin:0 0 6px;}
+  header p{margin:0; font-size:13.5px; color:#BFD8CB;}
+
+  .search{margin:-20px 22px 0; background:var(--paper); border:1px solid var(--line); border-radius:16px;
+    padding:13px 16px; display:flex; align-items:center; gap:10px; box-shadow:0 8px 20px -12px rgba(19,41,32,.3); position:relative; z-index:2;}
+  .search span{color:var(--ink-soft); font-size:14px;}
+  .search input{border:none; outline:none; font-family:var(--font-body); font-size:13.5px; width:100%; background:transparent;}
+
+  .content{flex:1; overflow-y:auto; padding:26px 22px 30px; display:flex; flex-direction:column; gap:26px;}
+
+  .section-label{font-family:var(--font-display); font-weight:600; font-size:15px; color:var(--pine-900); margin:0;}
+
+  .sport-shortcuts{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+  .shortcut{border:1.5px solid var(--line); border-radius:16px; padding:16px 8px; display:flex;
+    flex-direction:column; align-items:center; gap:8px; transition:border-color .15s ease, background .15s ease;}
+  .shortcut:hover{border-color:var(--pine-700); background:#E7F0EA;}
+  .shortcut .ic{font-size:24px;}
+  .shortcut span{font-size:12px; font-weight:600;}
+
+  .cta{background:var(--clay-600); color:#fff; border:none; border-radius:999px; padding:16px 0;
+    font-size:15px; font-weight:700; font-family:var(--font-body); text-align:center; display:block;
+    transition:background .15s ease;}
+  .cta:hover {background: #8F3F1D;}
+
+  .venue-card{border:1.5px solid var(--line); border-radius:18px; padding:14px; display:flex; gap:12px; align-items:center;}
+  .venue-thumb{width:56px;height:56px;border-radius:14px; flex:0 0 auto;
+    background:linear-gradient(135deg,#2E6B54,#132920); display:flex;align-items:center;justify-content:center;font-size:22px;}
+  .venue-info h3{margin:0 0 3px; font-size:16px; font-weight:600;}
+  .venue-info p{margin:0; font-size:16px; color:var(--ink-soft);}
+
+  .bottom-nav{border-top:1px solid var(--line); background:var(--paper); padding:12px 22px 18px;
+    display:flex; justify-content:space-around;}
+  .nav-item{display:flex; flex-direction:column; align-items:center; gap:4px; font-size:10.5px; color:var(--ink-soft); font-weight:600;}
+  .nav-item.active{color:var(--pine-700);}
+  .nav-item .ic{font-size:18px;}
+  .sr-only {position:absolute; width:1px; height:1px; overflow:hidden}
+
+  .shortcut:focus-visible,
+.venue-card:focus-visible,
+.cta:focus-visible,
+#busca:focus-visible {
+    outline: 3px solid var(--clay-600);
+    outline-offset: 2px;
+}
+
+  @media (prefers-reduced-motion: reduce){*{transition:none !important;}}
+  @media (max-width:400px){.phone{border-radius:0;min-height:100vh;} body{padding:0;}}
+</style>
+</head>
+<body>
+
+<main class="phone">
+  <header>
+    <div class="top-row">
+      <div class="brand"><span class="dot"></span>ReservaXa</div>
+      <div class="avatar" aria-hidden="true">👤</div>
+    </div>
+    <h1>Ola, Nigga</h1>
+    <p>Instalacións deportivas municipais ao teu alcance</p>
+  </header>
+
+  <div class="search" aria-hidden="true">
+    <span>🔍</span>
+    <input type="text" placeholder="Busca unha instalación ou deporte">
+    <label for="busca" class="sr-only" >Buscar</label>
+  </div>
+
+  <div class="content">
+
+    <section>
+      <p class="section-label" style="margin-bottom:12px;">Deportes populares</p>
+      <div class="sport-shortcuts">
+        <a class="shortcut" href="2-seleccion-pistas.html"><span class="ic" aria-hidden="true">🎾</span><span>Padel</span></a>
+        <a class="shortcut" href="2-seleccion-pistas.html"><span class="ic" aria-hidden="true">⚽</span><span>Fútbol 7</span></a>
+        <a class="shortcut" href="2-seleccion-pistas.html"><span class="ic" aria-hidden="true">🏀</span><span>Baloncesto</span></a>
+      </div>
+    </section>
+
+    <a class="cta" href="2-seleccion-pistas.html">Reservar unha pista</a>
+
+    <section>
+      <p class="section-label" style="margin-bottom:12px;">Instalacións preto de ti</p>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <a class="venue-card" href="2-seleccion-pistas.html">
+          <div class="venue-thumb" aria-hidden="true">🏟️</div>
+          <div class="venue-info">
+            <h3>Pavillón Municipal A</h3>
+            <p>Padel · Fútbol 7 · a 900 m</p>
+          </div>
+        </a>
+        <a class="venue-card" href="2-seleccion-pistas.html">
+          <div class="venue-thumb" aria-hidden="true">🏀</div>
+          <div class="venue-info">
+            <h3>Polideportivo do Couto</h3>
+            <p>Baloncesto · Voleibol · a 1,4 km</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-item active"><span class="ic" aria-hidden="true">🏠</span>Inicio</div>
+    <div class="nav-item"><span class="ic" aria-hidden="true">📅</span>Reservas</div>
+    <div class="nav-item"><span class="ic" aria-hidden="true">👤</span>Perfil</div>
+  </nav>
+</main>
+
+</body>
+</html>
