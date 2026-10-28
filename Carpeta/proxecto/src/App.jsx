@@ -2,7 +2,85 @@ import { useState } from 'react'
 import heroImg from './assets/hero.png'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
-import './App.css'
+import './inicio.css'
+import Tarxeta from './Tarxeta'
+
+const Pistas = [
+    {
+      id:1,
+      nome: "Pista 1",
+      imagen: "foto.jpg",
+      tipo: "Cuberta",
+      disponible: true,
+      deporte: "Padel",
+      lugar: "Tel Aviv",
+      superficie: "Cracka Pack Chris Griffin",
+      distancia: "a 900 m"
+    },
+    {   
+      id:2,
+      nome: "Pista 2",
+      imagen: "unnamed.jpg",
+      tipo: "Exterior",
+      disponible: false,
+      deporte: "Tenis",
+      lugar: "Big Yahu spot",
+      superficie: "Yo teach whats for lunch",
+      distancia: "a 1.2 km"
+    }
+]
+
+export default function Inicio() {
+  return (
+    <div className="contenedor-pistas">
+      <h1>Reserva de Pistas</h1>
+      {Pistas.map(pista => (
+        <div key={pista.id}>
+          <Tarxeta 
+            key={pista.id}
+            pista={pista}
+          /><br></br>
+          </div>
+      ))}
+    </div>
+  )
+}
+
+
+
+
+// export default function Inicio() { 
+//   return (
+//     <div className="contenedor-pistas">
+//       <h1>Reserva de Pistas</h1>
+      
+//         <Tarxeta 
+//         nome="Pista 1"
+//         tipo="Cuberta"
+//         estado="Libre"
+//         deporte="Padel"
+//         lugar="Tel Aviv"
+//         superficie="Cracka Pack Chris Griffin"
+//         distancia="a 900 m"
+//       />
+//       <br></br>
+//       <Tarxeta 
+//         nome="Pista 2"
+//         tipo="Exterior"
+//         estado="Ocupada"
+//         deporte="Tenis"
+//         lugar="Big Yahu spot"
+//         superficie="Yo teach whats for lunch"
+//         distancia="a 1.2 km"
+//       />
+//     </div>
+//   )
+// }
+
+
+
+
+
 
 // function formatDate(date) {
 //   return new Intl.DateTimeFormat (
@@ -79,28 +157,77 @@ import './App.css'
 //   )
 // }
 
-function Cadrado({valor}) {
-    return <button className="square">{valor}</button>
-  }
+// function Cadrado({valor}) {
+//     return <button className="square">{valor}</button>
+//   }
 
-export default function Taboleiro() {
-  const cuadrado = []
+// export default function Taboleiro() {
+//   const cuadrado = []
 
-  for (let i = 1; i <= 9; i++) {
-    cuadrado.push(<Cadrado valor={i}/>)
-  }
+//   for (let i = 1; i <= 9; i++) {
+//     cuadrado.push(<Cadrado valor={i}/>)
+//   }
 
-  return (
-    <>
-      <div className="board-row">
-        {cuadrado.slice(0,3)}
-      </div>
-      <div className="board-row">
-        {cuadrado.slice(3,6)}
-      </div>
-      <div className="board-row">
-        {cuadrado.slice(6,9)}
-      </div>
-    </>
-  )
-}
+//   return (
+//     <>
+//       <div className="board-row">
+//         {cuadrado.slice(0,3)}
+//       </div>
+//       <div className="board-row">
+//         {cuadrado.slice(3,6)}
+//       </div>
+//       <div className="board-row">
+//         {cuadrado.slice(6,9)}
+//       </div>
+//     </>
+//   )
+// }
+
+// const deportes = [
+//   { nome: "Padel", icono: "🎾" },
+//   { nome: "Fútbol 7", icono: "⚽" },
+//   { nome: "Baloncesto", icono: "🏀" },
+// ];
+
+// const pistas = [
+//   {
+//     id: 1,
+//     titulo: "Pista 1 — Cuberta",
+//     tipo: "padel",
+//     icono: "🎾",
+//     lugar: "Padel · Pavillón Municipal A",
+//     detalle: "Chan de céspede sintético · a 900 m",
+//   },
+//   {
+//     id: 2,
+//     titulo: "Pista 2 — Exterior",
+//     tipo: "padel",
+//     icono: "🎾",
+//     lugar: "Padel · Pavillón Municipal A",
+//     detalle: "Iluminación nocturna · a 900 m",
+//   },
+//   {
+//     id: 3,
+//     titulo: "Campo Fútbol 7",
+//     tipo: "futbol",
+//     icono: "⚽",
+//     lugar: "Fútbol 7 · Pavillón Municipal A",
+//     detalle: "Céspede artificial · a 900 m",
+//   },
+//   {
+//     id: 4,
+//     titulo: "Pista Baloncesto",
+//     tipo: "baloncesto",
+//     icono: "🏀",
+//     lugar: "Baloncesto · Polideportivo do Couto",
+//     detalle: "Parqué cuberto · a 1,4 km",
+//   },
+// ];
+
+// const navItems = [
+//   { label: "Inicio", icono: "🏠", activo: true },
+//   { label: "Reservas", icono: "📅", activo: false },
+//   { label: "Perfil", icono: "👤", activo: false },
+// ];
+
+
