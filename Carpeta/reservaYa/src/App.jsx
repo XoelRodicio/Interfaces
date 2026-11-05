@@ -1,6 +1,14 @@
 
 import './inicio.css';
 import Tarxeta from "./Tarxeta.jsx";
+import Navegador from "./Navegador.jsx";
+
+const enlacesMenu = [
+  { texto: 'Inicio', href: '#', activo: true },
+  { texto: 'Mis Reservas', href: '#' },
+  { texto: 'Historial', href: '#' },
+  { texto: 'Perfil', href: '#', deshabilitado: true }
+];
 
 const deportes = [
   { nome: "Padel", icono: "🎾" },
@@ -12,6 +20,7 @@ const pistas = [
   {
     id: 1,
     nome: "🎾 Pista 1",
+    imagen: "unnamed.jpg",
     tipo: "Cuberta",
     deporte: "Padel",
     lugar: "Pavillón Municipal A",
@@ -22,6 +31,7 @@ const pistas = [
   {
     id: 2,
     nome: "🎾 Pista 2",
+    imagen: "foto.jpg",
     tipo: "Exterior",
     deporte: "Padel",
     lugar: "Pavillón Municipal A",
@@ -32,6 +42,7 @@ const pistas = [
   {
     id: 3,
     nome: "⚽ Campo Fútbol 7",
+    imagen: "unnamed.jpg",
     tipo: "Exterior",
     deporte: "Fútbol 7",
     lugar: "Pavillón Municipal A",
@@ -42,6 +53,7 @@ const pistas = [
   {
     id: 4,
     nome: "🏀 Pista Baloncesto",
+    imagen: "foto.jpg",
     tipo: "Cuberta",
     deporte: "Baloncesto",
     lugar: "Polideportivo do Couto",
@@ -51,11 +63,7 @@ const pistas = [
   },
 ];
 
-export default function Inicio({
-  onReservar = () => {
-    window.location.href = IR_A_SELECCION;
-  }
-}) {
+export default function Inicio() {
   return (
     <div className="rx">
 
@@ -92,7 +100,8 @@ export default function Inicio({
         </div>
 
         <div className="content">
-
+          <Navegador elementos={enlacesMenu}/>
+          
           <section>
             <p className="section-label">
               Deportes populares

@@ -1,12 +1,12 @@
-// RETO 1 · Dividir unha lista en dúas
-//
-// Agora móstranse todas as linguaxes nunha única lista.
-// Cambia o compoñente para que se vexan dúas listas, unha despois da outra:
-//   1. "Interpretadas": as que teñen tipo === "interpretada".
-//   2. "Outras": todas as demais.
-//
-// Como usalo: copia este código en src/App.jsx.
-// Comproba que non hai avisos na consola do navegador.
+// // RETO 1 · Dividir unha lista en dúas
+// //
+// // Agora móstranse todas as linguaxes nunha única lista.
+// // Cambia o compoñente para que se vexan dúas listas, unha despois da outra:
+// //   1. "Interpretadas": as que teñen tipo === "interpretada".
+// //   2. "Outras": todas as demais.
+// //
+// // Como usalo: copia este código en src/App.jsx.
+// // Comproba que non hai avisos na consola do navegador.
 
 // const linguaxes = [
 //   { id: 0, nome: "JavaScript", tipo: "interpretada", ano: 1995 },
@@ -46,13 +46,13 @@
 //   );
 // }
 
-// RETO 2 · Listas aniñadas nun só compoñente
+// // RETO 2 · Listas aniñadas nun só compoñente
 
-// Cada playlist ten un array de cancións, pero agora só se mostra o seu nome.
-// Cambia o compoñente para que debaixo de cada nome apareza a lista das súas cancións.
+// // Cada playlist ten un array de cancións, pero agora só se mostra o seu nome.
+// // Cambia o compoñente para que debaixo de cada nome apareza a lista das súas cancións.
 
-// Como usalo: copia este código en src/App.jsx.
-// Comproba que non hai avisos na consola do navegador.
+// // Como usalo: copia este código en src/App.jsx.
+// // Comproba que non hai avisos na consola do navegador.
 
 // const playlists = [
 //   {
@@ -91,23 +91,75 @@
 //   );
 // }
 
-// RETO 3 · Extraer un compoñente para cada elemento
-//
-// O código de cada libro está escrito dentro do map().
-// Crea un compoñente Libro que reciba o libro por props e devolva ese mesmo <li>.
-// Despois usa <Libro key={libro.id} libro={libro} /> dentro do map().
-//
-// Como usalo: copia este código en src/App.jsx.
-// Comproba que non hai avisos na consola do navegador.
-import Libro from './Libro'
+// // RETO 3 · Extraer un compoñente para cada elemento
+// //
+// // O código de cada libro está escrito dentro do map().
+// // Crea un compoñente Libro que reciba o libro por props e devolva ese mesmo <li>.
+// // Despois usa <Libro key={libro.id} libro={libro} /> dentro do map().
+// //
+// // Como usalo: copia este código en src/App.jsx.
+// // Comproba que non hai avisos na consola do navegador.
 
-const libros = [
-  { id: 1, titulo: "Don Quixote", autor: "Miguel de Cervantes", ano: 1605 },
-  { id: 2, titulo: "Cen anos de soidade", autor: "Gabriel García Márquez", ano: 1967 },
-  { id: 3, titulo: "Os Lusíadas", autor: "Luís de Camões", ano: 1572 },
-  { id: 4, titulo: "Memorias dun neno labrego", autor: "Xosé Neira Vilas", ano: 1961 },
-];
+// function Libro({ libro }) {
+//   return (
+//       <>
+//         <ul key={libro.id}>
+//         <h3>{libro.titulo}</h3>
+//         <p>{libro.autor}</p>
+//         <p>{libro.ano}</p>
+//         </ul>
+//       </>
+//   )
+// }
+
+// const libros = [
+//   { id: 1, titulo: "Don Quixote", autor: "Miguel de Cervantes", ano: 1605 },
+//   { id: 2, titulo: "Cen anos de soidade", autor: "Gabriel García Márquez", ano: 1967 },
+//   { id: 3, titulo: "Os Lusíadas", autor: "Luís de Camões", ano: 1572 },
+//   { id: 4, titulo: "Memorias dun neno labrego", autor: "Xosé Neira Vilas", ano: 1961 },
+// ];
   
-export default function App() {
-  return libros.map((libro) => (<Libro key={libro.id} libro={libro}/>));
-}
+// export default function App() {
+//   return libros.map((libro) => (
+//   <Libro key={libro.id} libro={libro}/>
+//   ));
+// }
+
+// // RETO 4 · Lista cun separador
+// //
+// // Agora cada paso móstrase nun <p>. Cambia o compoñente para que haxa unha liña <hr />
+// // ENTRE os pasos: non antes do primeiro nin despois do último.
+// //
+// // Pistas:
+// //   - Cada elemento vai ter varios nodos (<hr /> e <p>). A sintaxe curta <>...</> non admite key,
+// //     así que usa <Fragment key={...}> importado de "react".
+// //   - O map() dá o índice como segundo parámetro: (paso, indice) => ...
+// //   - Mostra o <hr /> só cando indice > 0.
+// //
+// // Como usalo: copia este código en src/App.jsx.
+// // Comproba que non hai avisos na consola do navegador.
+
+// import { Fragment } from "react";
+
+// const pasos = [
+//   { id: 1, texto: "Executa npm run build." },
+//   { id: 2, texto: "Proba a versión final con npm run preview." },
+//   { id: 3, texto: "Sube o proxecto a GitHub." },
+//   { id: 4, texto: "Publica o sitio no servizo que escollas." },
+// ];
+
+// export default function App() {
+//   const elementos = pasos.map((paso, indice) => (
+//     <Fragment key={paso.id}>
+//       {(indice > 0) && <hr/>}
+//       <p>{paso.texto}</p>
+//     </Fragment>
+//   ));
+
+//   return (
+//     <article>
+//       <h1>Como despregar o proxecto</h1>
+//       {elementos}
+//     </article>
+//   );
+// }
