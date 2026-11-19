@@ -1,0 +1,6 @@
+1. ¿Qué pasó en la Parte A cuando las dos clases se llamaban igual?
+Ambas tarjetas se mostraron con el fondo naranja y borde rojo. El último archivo en cargarse sobrescribió los estilos del primero
+2. ¿Qué cambia en el HTML del navegador cuando usas un Módulo CSS?
+El nombre de la clase deja de ser simple y se convierte en un identificador único generado automáticamente
+3. ¿Cuál de las dos técnicas elegirías para tu proyecto y por qué?
+Utilizaría las clases genéricas como botón o card
