@@ -145,7 +145,7 @@ export default function Inicio() {
                   pista={p}
                 />
               ))}
-
+ 
             </div>
           </section>
 

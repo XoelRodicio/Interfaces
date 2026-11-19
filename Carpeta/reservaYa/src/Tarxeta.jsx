@@ -16,7 +16,7 @@ export default function Tarxeta({ pista }) {
     //   </div>
     // </a>
     
-  
+   
   <section className="card" style={{ maxWidth: '320px' }}>
     
     <div className="pista-media padel" aria-hidden="true">

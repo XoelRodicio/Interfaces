@@ -117,7 +117,7 @@
   position: relative; 
   z-index: 2;
 }
-
+ 
 .rx .search span {
   color: var(--ink-soft); 
   font-size: 14px;

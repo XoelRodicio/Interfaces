@@ -2349,7 +2349,7 @@
     -webkit-overflow-scrolling:touch;
     overflow-x:auto;
     container-type:inline-size
-  }
+  } 
   .sm\:table-responsive{
     container-type:inline-size
   }
