@@ -32,14 +32,12 @@ const aplicarDescuento = (lista) => {
         precio: p.precio * 0.9
       }
     }
-
     return p
   })
 }
 
-console.log("INSTRUCCION 1")
+console.log("INTRUCCION 1")
 console.log(aplicarDescuento(productos))
-
 // ----------------------------------------------------------------------------
 // INSTRUCCIÓN 2: Formatear Mensajes
 // Crea una función flecha `generarEtiquetas` que tome un array de productos.
@@ -135,6 +133,10 @@ const ordenarPorPrecioDesc = (lista) => {
     return [...lista].sort((a, b) => b.precio - a.precio)
 }
 
+const ordenarPorPrecioDesc2 = (lista) => {
+  return [...lista].sort((a, b) => a.precio - b.precio)
+}
+
 console.log("\nINSTRUCCION 7")
 console.log(ordenarPorPrecioDesc(productos))
 
@@ -149,8 +151,6 @@ console.log(ordenarPorPrecioDesc(productos))
 const calcularValorTotalInventario = (lista) => {
   return productos.reduce((total,{precio, stock}) => total + precio * stock, 0)
 }
-
-
 
 // ==========================================
 // 📥 MÉTODOS DE ARRAYS
