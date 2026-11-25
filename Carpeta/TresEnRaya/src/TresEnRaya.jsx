@@ -8,7 +8,7 @@ function Cadrado({ valor, onCadradoClick, gañadora }) {
     </button>
   );
 }
-
+ 
 function calcularGanador(cadrados) {
   const ganadoras = [
     [0, 1, 2],
