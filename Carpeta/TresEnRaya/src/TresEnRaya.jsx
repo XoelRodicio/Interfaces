@@ -1,9 +1,9 @@
 import { useState } from "react";
 import "./styles.css";
 
-function Cadrado({ valor, onCadradoClick }) {
+function Cadrado({ valor, onCadradoClick, gañadora }) {
   return (
-    <button className="square" onClick={onCadradoClick}>
+    <button className={gañadora ? "square winner" : "square"} onClick={onCadradoClick}>
       {valor}
     </button>
   );
@@ -23,7 +23,7 @@ function calcularGanador(cadrados) {
   for (let i = 0; i < ganadoras.length; i++) {
     const [a, b, c] = ganadoras[i];
     if (cadrados[a] && cadrados[a] === cadrados[b] && cadrados[a] === cadrados[c]) {
-      return cadrados[a];
+      return { ganador: cadrados[a], linea: [a, b, c] };
     }
   }
   return null;
@@ -31,13 +31,18 @@ function calcularGanador(cadrados) {
 
 export default function Xogo() {
   const [xTurno, setXTurno] = useState(true);
-  const [historial, setHistorial] = useState([Array(9).fill(null)]);
+  const [historial, setHistorial] = useState([
+    { cadrados: Array(9).fill(null), posicion: null },
+  ]);
   const [movementoActual, setMovementoActual] = useState(0);
   const [ascendente, setAscendente] = useState(true);
-  const cadradosActuais = historial[movementoActual];
+  const cadradosActuais = historial[movementoActual].cadrados;
 
-  function handleXogo(novosCadrados) {
-    const novoHistorial = [...historial.slice(0, movementoActual + 1), novosCadrados];
+  function handleXogo(novosCadrados, posicion) {
+    const novoHistorial = [
+      ...historial.slice(0, movementoActual + 1),
+      { cadrados: novosCadrados, posicion: posicion },
+    ];
     setHistorial(novoHistorial);
     setMovementoActual(novoHistorial.length - 1);
     setXTurno(!xTurno);
@@ -48,17 +53,26 @@ export default function Xogo() {
     setXTurno(movemento % 2 === 0);
   }
 
-  const movementos = historial.map((cadrados, index) => (
-    <li key={index}>
-      {index === movementoActual ? (
-        <div>Estás en el movimiento {index}</div>
-      ) : (
-        <button onClick={() => saltarA(index)}>
-          {index === 0 ? "Ir al inicio del juego" : "Ir al movimiento " + index}
-        </button>
-      )}
-    </li>
-  ));
+  const movementos = historial.map((paso, index) => {
+    let localizacion = "";
+    if (paso.posicion !== null) {
+      const columna = (paso.posicion % 3) + 1;
+      const fila = Math.floor(paso.posicion / 3) + 1;
+      localizacion = " (" + columna + ", " + fila + ")";
+    }
+
+    return (
+      <li key={index}>
+        {index === movementoActual ? (
+          <div>Estás en el movimiento {index + localizacion}</div>
+        ) : (
+          <button onClick={() => saltarA(index)}>
+            {index === 0 ? "Ir al inicio del juego" : "Ir al movimiento " + index + localizacion}
+          </button>
+        )}
+      </li>
+    );
+  });
 
   return (
     <div className="game">
@@ -76,10 +90,18 @@ export default function Xogo() {
 }
 
 export function Taboleiro({ xTurno, cadrados, onXogar }) {
-  const ganador = calcularGanador(cadrados);
-  const estado = ganador
-    ? "Ganador: " + ganador
-    : "Siguiente xogador: " + (xTurno ? "X" : "O");
+  const resultado = calcularGanador(cadrados);
+  const ganador = resultado ? resultado.ganador : null;
+  const linea = resultado ? resultado.linea : [];
+
+  let estado;
+  if (ganador) {
+    estado = "Ganador: " + ganador;
+  } else if (cadrados.every((c) => c !== null)) {
+    estado = "Empate";
+  } else {
+    estado = "Siguiente xogador: " + (xTurno ? "X" : "O");
+  }
 
   function handleClick(i) {
     if (cadrados[i] || ganador) {
@@ -88,7 +110,7 @@ export function Taboleiro({ xTurno, cadrados, onXogar }) {
 
     const novosCadrados = cadrados.slice();
     novosCadrados[i] = xTurno ? "X" : "O";
-    onXogar(novosCadrados);
+    onXogar(novosCadrados, i);
   }
 
   return (
@@ -102,9 +124,21 @@ export function Taboleiro({ xTurno, cadrados, onXogar }) {
 
         return (
           <div key={index}>
-            <Cadrado valor={cadrados[index]} onCadradoClick={() => handleClick(index)} />
-            <Cadrado valor={cadrados[index + 1]} onCadradoClick={() => handleClick(index + 1)} />
-            <Cadrado valor={cadrados[index + 2]} onCadradoClick={() => handleClick(index + 2)} />
+            <Cadrado
+              valor={cadrados[index]}
+              gañadora={linea.includes(index)}
+              onCadradoClick={() => handleClick(index)}
+            />
+            <Cadrado
+              valor={cadrados[index + 1]}
+              gañadora={linea.includes(index + 1)}
+              onCadradoClick={() => handleClick(index + 1)}
+            />
+            <Cadrado
+              valor={cadrados[index + 2]}
+              gañadora={linea.includes(index + 2)}
+              onCadradoClick={() => handleClick(index + 2)}
+            />
           </div>
         );
       })}
