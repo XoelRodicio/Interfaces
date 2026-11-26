@@ -1,12 +1,12 @@
-import { useState } from "react";
-import "./styles.css";
+import { useState } from "react"
+import "./styles.css"
 
 function Cadrado({ valor, onCadradoClick, gañadora }) {
   return (
-    <button className={gañadora ? "square winner" : "square"} onClick={onCadradoClick}>
+    <button className={gañadora ? "square-winner" : "square"} onClick={onCadradoClick}>
       {valor}
     </button>
-  );
+  )
 }
  
 function calcularGanador(cadrados) {
@@ -19,46 +19,46 @@ function calcularGanador(cadrados) {
     [2, 5, 8],
     [0, 4, 8],
     [2, 4, 6],
-  ];
+  ]
   for (let i = 0; i < ganadoras.length; i++) {
-    const [a, b, c] = ganadoras[i];
+    const [a, b, c] = ganadoras[i]
     if (cadrados[a] && cadrados[a] === cadrados[b] && cadrados[a] === cadrados[c]) {
-      return { ganador: cadrados[a], linea: [a, b, c] };
+      return { ganador: cadrados[a], linea: [a, b, c] }
     }
   }
-  return null;
+  return null
 }
 
 export default function Xogo() {
-  const [xTurno, setXTurno] = useState(true);
+  const [xTurno, setXTurno] = useState(true)
   const [historial, setHistorial] = useState([
     { cadrados: Array(9).fill(null), posicion: null },
-  ]);
-  const [movementoActual, setMovementoActual] = useState(0);
-  const [ascendente, setAscendente] = useState(true);
-  const cadradosActuais = historial[movementoActual].cadrados;
+  ])
+  const [movementoActual, setMovementoActual] = useState(0)
+  const [ascendente, setAscendente] = useState(true)
+  const cadradosActuais = historial[movementoActual].cadrados
 
   function handleXogo(novosCadrados, posicion) {
     const novoHistorial = [
       ...historial.slice(0, movementoActual + 1),
       { cadrados: novosCadrados, posicion: posicion },
-    ];
-    setHistorial(novoHistorial);
-    setMovementoActual(novoHistorial.length - 1);
-    setXTurno(!xTurno);
+    ]
+    setHistorial(novoHistorial)
+    setMovementoActual(novoHistorial.length - 1)
+    setXTurno(!xTurno)
   }
 
   function saltarA(movemento) {
-    setMovementoActual(movemento);
-    setXTurno(movemento % 2 === 0);
+    setMovementoActual(movemento)
+    setXTurno(movemento % 2 === 0)
   }
 
   const movementos = historial.map((paso, index) => {
-    let localizacion = "";
+    let localizacion = ""
     if (paso.posicion !== null) {
-      const columna = (paso.posicion % 3) + 1;
-      const fila = Math.floor(paso.posicion / 3) + 1;
-      localizacion = " (" + columna + ", " + fila + ")";
+      const columna = (paso.posicion % 3) + 1
+      const fila = Math.floor(paso.posicion / 3) + 1
+      localizacion = " (" + columna + ", " + fila + ")"
     }
 
     return (
@@ -71,8 +71,8 @@ export default function Xogo() {
           </button>
         )}
       </li>
-    );
-  });
+    )
+  })
 
   return (
     <div className="game">
@@ -86,31 +86,31 @@ export default function Xogo() {
         <ol>{ascendente ? movementos : movementos.reverse()}</ol>
       </div>
     </div>
-  );
+  )
 }
 
 export function Taboleiro({ xTurno, cadrados, onXogar }) {
-  const resultado = calcularGanador(cadrados);
-  const ganador = resultado ? resultado.ganador : null;
-  const linea = resultado ? resultado.linea : [];
+  const resultado = calcularGanador(cadrados)
+  const ganador = resultado ? resultado.ganador : null
+  const linea = resultado ? resultado.linea : []
 
-  let estado;
+  let estado
   if (ganador) {
-    estado = "Ganador: " + ganador;
+    estado = "Ganador: " + ganador
   } else if (cadrados.every((c) => c !== null)) {
-    estado = "Empate";
+    estado = "Empate"
   } else {
-    estado = "Siguiente xogador: " + (xTurno ? "X" : "O");
+    estado = "Siguiente xogador: " + (xTurno ? "X" : "O")
   }
 
   function handleClick(i) {
     if (cadrados[i] || ganador) {
-      return;
+      return
     }
 
-    const novosCadrados = cadrados.slice();
-    novosCadrados[i] = xTurno ? "X" : "O";
-    onXogar(novosCadrados, i);
+    const novosCadrados = cadrados.slice()
+    novosCadrados[i] = xTurno ? "X" : "O"
+    onXogar(novosCadrados, i)
   }
 
   return (
@@ -119,7 +119,7 @@ export function Taboleiro({ xTurno, cadrados, onXogar }) {
 
       {cadrados.map((cadrado, index) => {
         if (index % 3 !== 0) {
-          return null;
+          return null
         }
 
         return (
@@ -140,8 +140,8 @@ export function Taboleiro({ xTurno, cadrados, onXogar }) {
               onCadradoClick={() => handleClick(index + 2)}
             />
           </div>
-        );
+        )
       })}
     </>
-  );
+  )
 }
