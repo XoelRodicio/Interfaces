@@ -1,0 +1,33 @@
+
+/* Bootstrap Grid: estilos didácticos */
+
+.bd-example-row .row > * {
+    padding: 0.75rem;
+    background-color: rgba(255, 192, 203, 0.35);
+    border: 1px solid rgba(220, 53, 69, 0.35);
+}
+
+/* Separación entre filas */
+.bd-example-row .row + .row {
+    margin-top: 1rem;
+}
+
+/* Fondo de demostración */
+.bd-example {
+    padding: 1rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+}
+
+/* Columnas destacadas */
+.bd-highlight {
+    background-color: rgba(255, 192, 203, 0.35);
+    border: 1px solid rgba(220, 53, 69, 0.35);
+}
+
+/* Ejemplos de CSS Grid de Bootstrap 6 */
+.bd-example .grid > * {
+    padding: 0.75rem;
+    background-color: rgba(255, 192, 203, 0.35);
+    border: 1px solid rgba(220, 53, 69, 0.35);
+}

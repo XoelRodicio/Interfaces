@@ -1,9 +1,9 @@
 import { useState } from "react"
 import "./styles.css"
 
-function Cadrado({ valor, onCadradoClick, gañadora }) {
+function Cadrado({ valor, onCadradoClick, ganadora }) {
   return (
-    <button className={gañadora ? "square-winner" : "square"} onClick={onCadradoClick}>
+    <button className={ganadora ? "square-winner" : "square"} onClick={onCadradoClick}>
       {valor}
     </button>
   )
@@ -23,7 +23,9 @@ function calcularGanador(cadrados) {
   for (let i = 0; i < ganadoras.length; i++) {
     const [a, b, c] = ganadoras[i]
     if (cadrados[a] && cadrados[a] === cadrados[b] && cadrados[a] === cadrados[c]) {
-      return { ganador: cadrados[a], linea: [a, b, c] }
+      return { 
+        ganador: cadrados[a], linea: [a, b, c] 
+      }
     }
   }
   return null
@@ -126,17 +128,17 @@ export function Taboleiro({ xTurno, cadrados, onXogar }) {
           <div key={index}>
             <Cadrado
               valor={cadrados[index]}
-              gañadora={linea.includes(index)}
+              ganadora={linea.includes(index)}
               onCadradoClick={() => handleClick(index)}
             />
             <Cadrado
               valor={cadrados[index + 1]}
-              gañadora={linea.includes(index + 1)}
+              ganadora={linea.includes(index + 1)}
               onCadradoClick={() => handleClick(index + 1)}
             />
             <Cadrado
               valor={cadrados[index + 2]}
-              gañadora={linea.includes(index + 2)}
+              ganadora={linea.includes(index + 2)}
               onCadradoClick={() => handleClick(index + 2)}
             />
           </div>
